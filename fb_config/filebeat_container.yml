@@ -1,0 +1,39 @@
+filebeat.autodiscover:
+  providers:
+    - type: docker
+      templates:
+        - condition:
+            regexp:
+              docker.container.name: '^logproducer-*'
+          config:
+            - type: container
+              paths: ["/hostfs/var/lib/docker/containers/${data.docker.container.id}/*.log" ]
+              tags: ["log-producer-stdout"]
+processors:
+  - add_id: ~
+
+name: it-is-me-ssitgj1
+fields:
+  petrol.env: test
+  petrol.solution: logs
+  petrol.datacenter: home
+fields_under_root: true
+logging:
+  metrics.enabled: false
+  level: info
+  ecs: false
+  json: false
+logging.to_files: true
+logging.files:
+  path: /usr/share/filebeat/logs
+  name: filebeat
+  rotateeverybytes: 10485760
+  keepfiles: 7
+  permissions: 0666
+  rotateonstartup: true
+  suffix: count
+
+output.console:
+  enabled: true
+  codec.json:
+    pretty: false

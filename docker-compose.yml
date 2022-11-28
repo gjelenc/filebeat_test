@@ -1,0 +1,98 @@
+version: '3.6'
+services:
+  filebeat:
+    #image: docker.elastic.co/beats/filebeat:8.5.2
+    image: docker.elastic.co/beats/filebeat:7.17.7
+    container_name: filebeat
+    hostname: it-is-me-ssitgj1
+    command: --strict.perms=false -e --path.config /usr/share/beats/config
+    volumes:
+      - "./fb_data:/usr/share/filebeat/data"
+      - "./fb_logs:/usr/share/filebeat/logs"
+      - "./fb_config/filebeat.yml:/usr/share/beats/config/filebeat.yml"
+      - "/:/hostfs:ro"
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+    network_mode: host
+    user: root
+    restart: always
+# docker run chentex/random-logger:latest 100 400
+  logproducer-1:
+    image: chentex/random-logger:latest
+    container_name: logproducer-1
+    command: 100 400 2
+  logproducer-2:
+    image: chentex/random-logger:latest
+    container_name: logproducer-2
+    command: 100 400 2
+  logproducer-3:
+    image: chentex/random-logger:latest
+    container_name: logproducer-3
+    command: 100 400 2
+  #logproducer-4:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-4
+  #   command: 100 400 20
+  # logproducer-5:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-5
+  #   command: 100 400 20
+  # logproducer-6:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-6
+  #   command: 100 400 20
+  # logproducer-7:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-7
+  #   command: 100 400 20
+  # logproducer-8:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-8
+  #   command: 100 400 20
+  # logproducer-9:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-9
+  #   command: 100 400 20
+  # logproducer-10:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-10
+  #   command: 100 400 20
+  # logproducer-11:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-11
+  #   command: 100 400 20
+  # logproducer-12:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-12
+  #   command: 100 400 20
+  # logproducer-13:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-13
+  #   command: 100 400 20
+  # logproducer-14:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-14
+  #   command: 100 400 20
+  # logproducer-15:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-15
+  #   command: 100 400 20
+  # logproducer-16:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-16
+  #   command: 100 400 20
+  # logproducer-17:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-17
+  #   command: 100 400 20
+  # logproducer-18:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-18
+  #   command: 100 400 20
+  # logproducer-19:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-19
+  #   command: 100 400 20
+  # logproducer-20:
+  #   image: chentex/random-logger:latest
+  #   container_name: logproducer-20
+  #   command: 100 400 20
